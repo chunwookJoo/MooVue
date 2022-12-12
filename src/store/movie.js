@@ -1,7 +1,4 @@
-// import { request } from "../api";
-
-// const API_END_POINT = process.env.API_END_POINT;
-// const API_KEY = process.env.API_KEY;
+import { request } from "../api";
 
 export default {
   namespaced: true,
@@ -71,27 +68,4 @@ export default {
       commit("modalOpen", modalClose);
     },
   },
-};
-
-const request = async (url) => {
-  console.log(url);
-  return await fetch("/.netlify/functions/movie", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(url),
-  }).then((res) => res.json());
-
-  // try {
-  //   const res = await fetch(`${API_END_POINT}?apikey=${API_KEY}&${url}`);
-
-  //   if (!res.ok) {
-  //     throw new Error("API ERROR");
-  //   }
-
-  //   return await res.json();
-  // } catch (error) {
-  //   alert(e.message);
-  // }
 };
