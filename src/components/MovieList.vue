@@ -56,7 +56,10 @@ export default {
 
   mounted() {
     this.$store.dispatch("movie/getSearchMovieList", {
-      searchInput: localStorage.getItem("searchWord"),
+      searchInput:
+        localStorage.getItem("searchWord") === null
+          ? ""
+          : localStorage.getItem("searchWord"),
       page: 1,
     });
   },
