@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development"
+    "dev": "netlify dev",
+    "dev:webpack": "webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "css-loader": "^6.7.2",
     "dotenv": "^16.0.3",
     "html-webpack-plugin": "^5.5.0",
+    "netlify-cli": "^12.2.10",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
     "vue-loader": "^17.0.1",
