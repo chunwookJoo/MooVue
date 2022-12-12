@@ -8,7 +8,7 @@
       type="text"
       class="input__search"
       placeholder="찾고싶은 영화를 검색하세요."
-      :value="clickKeyword"
+      :value="clickKeyword || getLocalStorageWord"
       @input="onSearchInput"
     />
   </div>
@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       timer: null,
+      getLocalStorageWord: localStorage.getItem("searchWord"),
     };
   },
   computed: {
@@ -36,6 +37,7 @@ export default {
       return this.$store.state.keyword.keyword;
     },
   },
+
   methods: {
     onSearchInput(event) {
       if (this.timer !== null) {
@@ -43,6 +45,7 @@ export default {
       }
       this.$store.dispatch("movie/loadingSpinner", true);
       this.timer = setTimeout(async () => {
+        localStorage.setItem("searchWord", event.target.value);
         this.$store.dispatch("movie/getSearchMovieList", {
           searchInput: event.target.value,
           page: 1,

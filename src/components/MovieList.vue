@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="hasMovieList"
     class="movie__list--container"
     v-bind:class="{ overlay: this.$store.state.movie.isLoading }"
   >
@@ -14,6 +15,9 @@
     </MovieDetailModal>
     <Loading :isLoading="this.$store.state.movie.isLoading" />
   </div>
+  <div v-else>
+    <h1 class="empty--search">검색결과가 없습니다. 🥺</h1>
+  </div>
   <div v-if="totalPages" class="pagination--container">
     <Pagination />
   </div>
@@ -26,12 +30,18 @@ import Pagination from "./utils/Pagination";
 import MovieDetailModal from "./utils/MovieDetailModal";
 
 export default {
+  data() {
+    return {
+      hasMovieList: true,
+    };
+  },
   components: {
     MovieListItem,
     Pagination,
     Loading,
     MovieDetailModal,
   },
+
   computed: {
     movieList() {
       return this.$store.state.movie.movieList;
@@ -42,6 +52,13 @@ export default {
     isModalOpen() {
       return this.$store.state.movie.isModalOpen;
     },
+  },
+
+  mounted() {
+    this.$store.dispatch("movie/getSearchMovieList", {
+      searchInput: localStorage.getItem("searchWord"),
+      page: 1,
+    });
   },
   methods: {
     handleClose() {
@@ -61,6 +78,13 @@ export default {
     gap: 2rem;
     grid-template-columns: repeat(5, 1fr);
   }
+}
+
+.empty--search {
+  font-size: 36px;
+  color: #fff;
+  text-align: center;
+  margin: 4rem;
 }
 
 .overlay {

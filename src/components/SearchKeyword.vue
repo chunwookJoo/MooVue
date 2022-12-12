@@ -19,6 +19,7 @@ export default {
   },
   methods: {
     onKeywordClick(keyword, resetPage) {
+      localStorage.setItem("searchWord", keyword);
       this.$store.dispatch("keyword/onClickKeyword", keyword);
       this.$store.dispatch("keyword/onCurrentPage", resetPage);
     },
